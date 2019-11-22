@@ -1,2 +1,4 @@
 rootProject.name = 'messaging-rabbitmq'
+include 'producer-service'
+include 'consumer-service'
 

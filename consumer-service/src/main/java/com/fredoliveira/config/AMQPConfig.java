@@ -1,5 +1,6 @@
-package com.fredoliveira;
+package com.fredoliveira.config;
 
+import com.fredoliveira.Receiver;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -33,7 +34,10 @@ public class AMQPConfig {
     }
 
     @Bean
-    SimpleMessageListenerContainer container(ConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
+    SimpleMessageListenerContainer container(
+        ConnectionFactory connectionFactory,
+        MessageListenerAdapter listenerAdapter
+    ) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames(queueName);

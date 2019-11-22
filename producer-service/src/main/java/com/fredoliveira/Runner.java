@@ -10,22 +10,17 @@ import java.util.concurrent.TimeUnit;
 public class Runner implements CommandLineRunner {
 
     private final RabbitTemplate rabbitTemplate;
-    private final Receiver receiver;
 
     public Runner(
-        Receiver receiver,
         RabbitTemplate rabbitTemplate
     ) {
-        this.receiver = receiver;
         this.rabbitTemplate = rabbitTemplate;
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         System.out.println("Sendin message...");
         rabbitTemplate.convertAndSend("spring-boot-exchange", "foo.bar.baz", "Hello from RabbitMQ");
-        //rabbitTemplate.convertAndSend("spring-boot", "Hello from RabbitMQ");
-        receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
     }
 
 }
