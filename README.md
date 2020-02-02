@@ -2,6 +2,11 @@
 
 Running RabbitMQ
 
+Check if application is runnnig
+`
+http://localhost:8082/api/message/greeting
+`
+
 `
 docker-compose up
 `
