@@ -7,7 +7,7 @@ Run everything by using one command:
 docker-compose up
 `
 
-Check if application is runnnig
+Check if application is runnnig:
 `
 http://localhost:8082/api/message/greeting
 `
@@ -32,8 +32,11 @@ Options to run the Spring Boot Aplication
  - or a jar
     - java -jar build/libs/gs-messaging-rabbitmq-0.1.0.jar
 
-Testing
+
+Testing producer and consumer
+```
 curl --request POST \
   --url http://localhost:8082/api/message/ \
   --header 'content-type: application/json' \
   --data '{"message": "Hello from producer"}'
+```
