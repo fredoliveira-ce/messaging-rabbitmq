@@ -1,6 +1,6 @@
-package com.fredoliveira.config;
+package com.fredoliveira.app.config;
 
-import com.fredoliveira.Receiver;
+import com.fredoliveira.data.consumer.Consumer;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -11,30 +11,25 @@ import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
-public class AMQPConfig {
+@Configuration public class AMQPConfig {
 
-    static final String topicExchangeName = "spring-boot-exchange";
+    private static final String topicExchangeName = "spring-boot-exchange";
 
-    static final String queueName = "spring-boot";
+    private static final String queueName = "spring-boot";
 
-    @Bean
-    Queue queue() {
+    @Bean Queue queue() {
         return new Queue(queueName, false);
     }
 
-    @Bean
-    TopicExchange exchange() {
+    @Bean TopicExchange exchange() {
         return new TopicExchange(topicExchangeName);
     }
 
-    @Bean
-    Binding binding(Queue queue, TopicExchange exchange) {
+    @Bean Binding binding(Queue queue, TopicExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with("foo.bar.#");
     }
 
-    @Bean
-    SimpleMessageListenerContainer container(
+    @Bean SimpleMessageListenerContainer container(
         ConnectionFactory connectionFactory,
         MessageListenerAdapter listenerAdapter
     ) {
@@ -46,8 +41,7 @@ public class AMQPConfig {
         return container;
     }
 
-    @Bean
-    MessageListenerAdapter listenerAdapter(Receiver receiver) {
+    @Bean MessageListenerAdapter listenerAdapter(Consumer receiver) {
         return new MessageListenerAdapter(receiver, "receiverMessage");
     }
 }

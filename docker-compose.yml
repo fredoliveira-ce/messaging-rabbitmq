@@ -1,9 +1,15 @@
-version: '3.3'
+version: "3.3"
+
+networks:
+  messaging:
+    external: true
 
 services:
   my-rabbitmq:
     image: rabbitmq:management
     restart: always
+    networks:
+      - messaging
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -11,11 +17,15 @@ services:
   my-mongo:
     image: mongo
     restart: always
+    networks:
+      - messaging
     ports:
       - "27017:27017"
 
   consumer-service:
     image: fredoliveirace/consumer-service
+    networks:
+      - messaging
     depends_on:
       - my-rabbitmq
       - my-mongo
@@ -24,6 +34,8 @@ services:
 
   producer-service:
     image: fredoliveirace/producer-service
+    networks:
+      - messaging
     depends_on:
       - my-rabbitmq
       - my-mongo

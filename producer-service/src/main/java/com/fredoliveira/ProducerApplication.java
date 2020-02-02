@@ -3,11 +3,10 @@ package com.fredoliveira;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-public class ProducerApplication {
+@SpringBootApplication public class ProducerApplication {
 
     public static void main(String [] args) {
-        SpringApplication.run(ProducerApplication.class, args).close();
+        SpringApplication.run(ProducerApplication.class, args);
     }
 
 }
