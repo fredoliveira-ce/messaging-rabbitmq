@@ -2,13 +2,14 @@
 
 Running RabbitMQ
 
+Run everything by using one command:
+`
+docker-compose up
+`
+
 Check if application is runnnig
 `
 http://localhost:8082/api/message/greeting
-`
-
-`
-docker-compose up
 `
 
 Just in case you want to create a network by using docker-compose
