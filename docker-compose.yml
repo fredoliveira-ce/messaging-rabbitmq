@@ -8,8 +8,7 @@ services:
   my-rabbitmq:
     image: rabbitmq:management
     restart: always
-    networks:
-      - messaging
+    network_mode: host
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -17,15 +16,14 @@ services:
   my-mongo:
     image: mongo
     restart: always
-    networks:
-      - messaging
+    network_mode: host
     ports:
       - "27017:27017"
 
   consumer-service:
     image: fredoliveirace/consumer-service
-    networks:
-      - messaging
+    restart: always
+    network_mode: host
     depends_on:
       - my-rabbitmq
       - my-mongo
@@ -34,8 +32,8 @@ services:
 
   producer-service:
     image: fredoliveirace/producer-service
-    networks:
-      - messaging
+    restart: always
+    network_mode: host
     depends_on:
       - my-rabbitmq
       - my-mongo
