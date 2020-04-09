@@ -1,5 +1,7 @@
 package com.fredoliveira.app.web;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 import com.fredoliveira.domain.entity.Greeting;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.ResponseEntity;
@@ -9,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.concurrent.atomic.AtomicLong;
 
 import static java.util.Objects.isNull;
 import static org.springframework.http.HttpStatus.ACCEPTED;

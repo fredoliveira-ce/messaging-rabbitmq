@@ -1,0 +1,64 @@
+version: "3.3"
+
+services:
+  my-rabbitmq:
+    image: rabbitmq:management
+    restart: always
+    ports:
+      - "5671:5671"
+      - "5672:5672"
+      - "4369:4369"
+      - "25672:25672"
+    networks:
+      - rabbit_net
+    deploy:
+      replicas: 1
+
+  my-mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    networks:
+      - mongo_net
+    deploy:
+      replicas: 1
+
+  consumer-service:
+    image: fredoliveirace/consumer-service
+    restart: always
+    depends_on:
+      - my-rabbitmq
+      - my-mongo
+    ports:
+      - "8081:8081"
+    networks:
+      - mongo_net
+      - rabbit_net
+    environment:
+      SPRING_DATA_MONGODB_HOST: my-mongo
+      SPRING_RABBITMQ_HOST: my-rabbitmq
+    deploy:
+      replicas: 1
+
+  producer-service:
+    image: fredoliveirace/producer-service
+    restart: always
+    depends_on:
+      - my-rabbitmq
+      - my-mongo
+      - consumer-service
+    ports:
+      - "8082:8082"
+    networks:
+      - rabbit_net
+    environment:
+      SPRING_RABBITMQ_HOST: my-rabbitmq
+    deploy:
+      replicas: 1
+
+networks:
+  rabbit_net:
+    driver: overlay
+  mongo_net:
+    driver: overlay

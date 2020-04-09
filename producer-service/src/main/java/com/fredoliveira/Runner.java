@@ -4,8 +4,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.TimeUnit;
-
 @Component public class Runner implements CommandLineRunner {
 
     private final RabbitTemplate rabbitTemplate;
@@ -16,8 +14,7 @@ import java.util.concurrent.TimeUnit;
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    @Override
-    public void run(String... args) {
+    @Override public void run(String... args) {
         System.out.println("Sendin message...");
         rabbitTemplate.convertAndSend("spring-boot-exchange", "foo.bar.baz", "Hello from RabbitMQ");
     }
